@@ -69,7 +69,7 @@ double F_ALG_FUN_API SQRT(double v);
 	BOOL F_ALG_FUN_API project_vector(double* vec, const double* face_norm);
 	//pt为待投影的点,
 	//base为投影面上的一个基点,face_norm为投影面的法线方向
-	BOOL F_ALG_FUN_API project_point(f3dPoint& pt, f3dPoint base, f3dPoint face_norm);
+	BOOL F_ALG_FUN_API project_point(COORD3D& pt, COORD3D base, COORD3D face_norm);
 	bool F_ALG_FUN_API ProjectPoint(double* xPointCoord, const double* xBaseCoord, const double* vPlaneNormalCoord);
 			// 建议换成以下两个函数: WW 00.7.4.
 			//     UCS_to_WCS( f3dPoint& pt, UCS_STRU ucs );
@@ -260,20 +260,20 @@ double F_ALG_FUN_API SQRT(double v);
 	
 	*/
 	int F_ALG_FUN_API Int3dll( const f3dPoint start0, const f3dPoint end0,
-							const f3dPoint start1, const f3dPoint end1, f3dPoint& pt,double TOLERANCE=EPS);
-	int F_ALG_FUN_API Int3dll(const f3dLine& L1, const f3dLine& L2,f3dPoint& pt,double TOLERANCE=EPS);
-	int F_ALG_FUN_API Int3dll(const f3dAtomLine& L1, const f3dAtomLine& L2,f3dPoint& pt,double TOLERANCE=EPS);
+							const f3dPoint start1, const f3dPoint end1, COORD3D& pt,double TOLERANCE=EPS);
+	int F_ALG_FUN_API Int3dll(const f3dLine& L1, const f3dLine& L2,COORD3D& pt,double TOLERANCE=EPS);
+	int F_ALG_FUN_API Int3dll(const f3dAtomLine& L1, const f3dAtomLine& L2,COORD3D& pt,double TOLERANCE=EPS);
 	//异面直线求交，求交结果保证交点在第一条直线上，cPrjAxis=0:投影求交面为两直线叉积面; cPrjAxis='X'、'Y'、'Z'
 	//返回值，0:L1与L2平行或重合或直线定义有误; 1:获取有效交点，且交点在L1之内点；2:有效交点为L1之端点；3:交点为L1或L2投影线外点
 	int F_ALG_FUN_API Int3dDifferPlaneLL( const f3dPoint start0, const f3dPoint end0,
-							const f3dPoint start1, const f3dPoint end1, f3dPoint& pt,char cPrjAxis=0);
+							const f3dPoint start1, const f3dPoint end1, COORD3D& pt,char cPrjAxis=0);
 	/*纯直线(intersection of 3d pure line)
 		-1：//直线端点重合，定义有误
 		 0：//L1与L2平行、重合或异面
 		 1：//交点为两直线段的内点
 	//求交不判断交点是否有效(即在线段内)*/
 	//int F_ALG_FUN_API Int3dpl(const f3dLine& L0, const f3dLine& L1,f3dPoint &pt);
-	int F_ALG_FUN_API Int3dpl(f3dLine L0, f3dLine L1,f3dPoint &pt,double TOLERANCE=EPS);
+	int F_ALG_FUN_API Int3dpl(f3dLine L0, f3dLine L1,COORD3D &pt,double TOLERANCE=EPS);
 	/* 三维直线段与射线求交点
 	返回值：
 		-2：//交点无效（直线外点）
@@ -283,7 +283,7 @@ double F_ALG_FUN_API SQRT(double v);
 		 2：//交点为直线段端点
 		 3：//交点为射线起始点
 	*/
-	int F_ALG_FUN_API Int3dlr(f3dLine line, f3dRay ray,f3dPoint &pt,UCS_STRU *pUCS=NULL);
+	int F_ALG_FUN_API Int3dlr(f3dLine line, f3dRay ray,COORD3D &pt,UCS_STRU *pUCS=NULL);
 	
 	//求直线L1与由面上的一点pick及面法线norm确定的面之间的交点
 	//返回值 -1:直线或面定义有误0:线与面平行或重合 1:得到有效交点
@@ -293,7 +293,7 @@ double F_ALG_FUN_API SQRT(double v);
 
 	//求直线L1与圆柱(锥)面之间的交点
 	//返回值 -1:直线或圆柱(锥)面定义有误0:线与圆柱(锥)面平行或无交点 1:得到1个有效交点2:得到2个有效交点
-	int F_ALG_FUN_API Int3dlc(f3dPoint *inters1,f3dPoint *inters2,
+	int F_ALG_FUN_API Int3dlc(COORD3D *inters1,COORD3D *inters2,
 		f3dPoint line_pick,f3dPoint line_vec,
 		f3dPoint axis_pick_start,f3dPoint axis_pick_end,double radius_start,double radius_end);
 	//返回值:
@@ -385,7 +385,7 @@ double F_ALG_FUN_API SQRT(double v);
 				double scope ,double &dist);
 
 	//返回一个与矢量vec方向不同的新矢量
-	F_ALG_FUN_API f3dPoint inters_vec(f3dPoint &vec);
+	F_ALG_FUN_API f3dPoint inters_vec(const double* pxInitialVec);
 	// 根据两点确定用户坐标系		--王金合
 	// 输入；origin(原点), axis_pt(坐标轴方向确定点)
 	// AXIS_X0Y1Z2表示输入的axis_pt参数表示用户坐标系的坐标轴标识0:X轴1:Y轴2:Z轴
@@ -393,10 +393,10 @@ double F_ALG_FUN_API SQRT(double v);
 	//		 ucs  程序所确定的用户坐标系
 	F_ALG_FUN_API BOOL CalCSBy2Pt(f3dPoint origin, UCS_STRU &ucs, f3dPoint axis_pt,int AXIS_X0Y1Z2=0);
 	//返回一个在直线start-->end上由捡取点pick确定的唯一垂足点
-	F_ALG_FUN_API BOOL SnapPerp(f3dPoint* perp, f3dPoint start, f3dPoint end,
-						f3dPoint pick, double* pDist=NULL);
-	F_ALG_FUN_API BOOL SnapPerp(f3dPoint* perp, f3dLine line,
-						f3dPoint pick, double* pDist=NULL);
+	F_ALG_FUN_API BOOL SnapPerp(COORD3D* perp, f3dLine line,const double* pick, double* pDist=NULL);
+	//用参数COORD3D&，而未用const double* 是为了避免与后面的二维点重载冲突 wjh-2019.8.26
+	F_ALG_FUN_API BOOL SnapPerp(COORD3D* perp, const COORD3D& start, const COORD3D& end,
+						const COORD3D& pick, double* pDist=NULL);
 	F_ALG_FUN_API BOOL SnapPerp(f2dPoint* perp, f2dPoint start, f2dPoint end,
 						f2dPoint pick, double* pDist=NULL);
 	F_ALG_FUN_API BOOL SnapPerp(f2dPoint* perp, f2dLine line,
