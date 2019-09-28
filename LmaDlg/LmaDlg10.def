@@ -1,0 +1,7 @@
+; LmaDlg7.def : Declares the module parameters for the DLL.
+
+LIBRARY      "LmaDlg10"
+DESCRIPTION  'LmaDlg10 Windows Dynamic Link Library'
+
+EXPORTS
+    ; Explicit exports can go here

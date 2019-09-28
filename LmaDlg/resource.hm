@@ -1,0 +1,31 @@
+// Microsoft Developer Studio generated Help ID include file.
+// Used by LmaDlg.rc
+//
+#define HIDC_BN_ADD_LEG_I               0x80e2048f    // IDD_CFG_PART_NO_DLG
+#define HIDC_BN_CPY_UCS                 0x81830441    // IDD_DEF_UCS_DLG
+#define HIDC_BN_DEL_LEG_I               0x80e2048e    // IDD_CFG_PART_NO_DLG
+#define HIDC_BN_MOVE_DOWN               0x80ef04cb    // IDD_CODE_NO_RULE_DLG
+#define HIDC_BN_MOVE_TO_BOTTOM          0x80ef04cc    // IDD_CODE_NO_RULE_DLG
+#define HIDC_BN_MOVE_TO_TOP             0x80ef04c9    // IDD_CODE_NO_RULE_DLG
+#define HIDC_BN_MOVE_UP                 0x80ef04ca    // IDD_CODE_NO_RULE_DLG
+#define HIDC_BN_PASTE_UCS               0x81830442    // IDD_DEF_UCS_DLG
+#define HIDC_CHK_JG_FIRST               0x80ef04cd    // IDD_CODE_NO_RULE_DLG
+#define HIDC_CMB_MIR_MSG                0x80a50423    // IDD_DEF_CTRL_PT_DLG
+#define HIDC_EDIT_X_COOR_VAL            0x80a50421    // IDD_DEF_CTRL_PT_DLG
+#define HIDC_EDIT_Y_COOR_VAL            0x80a5041e    // IDD_DEF_CTRL_PT_DLG
+#define HIDC_EDIT_Z_COOR_VAL            0x80a5041f    // IDD_DEF_CTRL_PT_DLG
+#define HIDC_E_AXIS_X_X                 0x81830497    // IDD_DEF_UCS_DLG
+#define HIDC_E_AXIS_X_Y                 0x81830498    // IDD_DEF_UCS_DLG
+#define HIDC_E_AXIS_X_Z                 0x81830499    // IDD_DEF_UCS_DLG
+#define HIDC_E_AXIS_Y_X                 0x8183049b    // IDD_DEF_UCS_DLG
+#define HIDC_E_AXIS_Y_Y                 0x8183049c    // IDD_DEF_UCS_DLG
+#define HIDC_E_AXIS_Y_Z                 0x8183049d    // IDD_DEF_UCS_DLG
+#define HIDC_E_AXIS_Z_X                 0x8183049f    // IDD_DEF_UCS_DLG
+#define HIDC_E_AXIS_Z_Y                 0x818304a0    // IDD_DEF_UCS_DLG
+#define HIDC_E_AXIS_Z_Z                 0x818304a1    // IDD_DEF_UCS_DLG
+#define HIDC_E_ORIGIN_POS_X             0x818304ab    // IDD_DEF_UCS_DLG
+#define HIDC_E_ORIGIN_POS_Y             0x818304ac    // IDD_DEF_UCS_DLG
+#define HIDC_E_ORIGIN_POS_Z             0x818304ad    // IDD_DEF_UCS_DLG
+#define HIDC_LIST_ATTACH_LEG_I          0x80e2048c    // IDD_CFG_PART_NO_DLG
+#define HIDC_LIST_REMAIN_LEG_I          0x80e2048d    // IDD_CFG_PART_NO_DLG
+#define HIDC_LIST_RULE                  0x80ef04c8    // IDD_CODE_NO_RULE_DLG
