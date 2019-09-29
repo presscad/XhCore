@@ -33,6 +33,9 @@
     <ClCompile Include="..\..\ToolKits\ToolCode\XhCharString.cpp">
       <Filter>ToolCode</Filter>
     </ClCompile>
+    <ClCompile Include="AngleLibrary.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="StdAfx.h">
@@ -55,6 +58,9 @@
     </ClInclude>
     <ClInclude Include="..\..\ToolKits\ToolCode\XhCharString.h">
       <Filter>ToolCode</Filter>
+    </ClInclude>
+    <ClInclude Include="AngleLibrary.h">
+      <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

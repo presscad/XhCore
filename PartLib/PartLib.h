@@ -544,9 +544,20 @@ struct PARTLIB_API FITTING_EB{
 	double dfBoardH;		//挂孔到耳轴中心线距离H
 	double dfChinR;			//挂孔下巴圆弧半径
 };
+struct PARTLIB_API FITTING_UR
+{
+	char szSizeCode[16];	//型号代码
+	char ciType;			//0.普通型U形挂环;1.加长型U形挂环
+	double dfNamedL;		//名义长(转轴中心至环壁内侧)L，mm
+	double dfShaftD;		//转轴螺栓直径d
+	double dfMdEdgeSpace;	//U型环与转轴螺母贴合面的边距D，mm
+	double dfT;				//U型环与EB或GD挂板间的连接部单侧连接壁厚T，mm
+	double dfRingBs;		//U型环柱直径B(s),
+	double dfBoardSpaceC;	//U型环与EB或GD挂板间的连接间隙(>=EB/GD挂板厚度)
+	double dfRadiusOfRing;	//U型环圆环内侧半径R，一般>=dfBoardSpaceC/2
+};
 //－－－－－－输出变量声明－－－－－－－－－
 extern PARTLIB_API WORD zhunju_N;
-extern PARTLIB_API int jgguige_N;	//最大150
 extern PARTLIB_API int tubeguige_N;	//回转类杆件
 extern PARTLIB_API int bianguige_N;	//扁钢类杆件
 extern PARTLIB_API int slotguige_N;	//扁钢类杆件
@@ -556,6 +567,7 @@ extern PARTLIB_API int hn_guige_N;	//窄翼缘H钢杆件
 extern PARTLIB_API int hp_guige_N;	//等翼缘H钢杆件
 extern PARTLIB_API int eb_guige_N;	//EB挂板规格
 extern PARTLIB_API int gd_guige_N;	//GD挂板规格
+extern PARTLIB_API int ur_guige_N;	//U型环规格
 extern PARTLIB_API int LsTypeCount;
 extern PARTLIB_API int g_nJgJointRecordNum;
 //extern PARTLIB_API int nLsXingHaoCount;//当前版本螺栓类型记录数
@@ -565,7 +577,39 @@ extern PARTLIB_API ANGLE_G_REC zhunju_table[];
 extern PARTLIB_API int lsspace_N;		//最大15
 extern PARTLIB_API LSSPACE_STRU LSSPACE_TABLE[];	//螺栓直径，单排间距，双排间距，端距，连板边距，轧制边距，切角边距，法兰内边距，法兰外边距
 extern PARTLIB_API const double LS_APERTURE[4];
-extern PARTLIB_API JG_PARA_TYPE jgguige_table[];//肢宽b;肢厚d;内圆半径r;理论重量
+//仅为兼容旧代码继承而写，建议新代码直接用IAngleLibrary操作 wjh-2019.9.11
+struct PARTLIB_API SYSLIB_ANGLESIZE_N{
+	SYSLIB_ANGLESIZE_N() { ; }
+	operator int();
+	int operator =(int N);
+	SYSLIB_ANGLESIZE_N(int N);
+};
+extern PARTLIB_API SYSLIB_ANGLESIZE_N jgguige_N;	//最大250
+//仅为兼容旧代码继承而写，建议新代码直接用IAngleLibrary操作 wjh-2019.9.11
+struct PARTLIB_API SYSLIB_ANGLESIZE_TBL{
+	SYSLIB_ANGLESIZE_TBL() { ; }
+	operator JG_PARA_TYPE*();
+};
+extern PARTLIB_API SYSLIB_ANGLESIZE_TBL jgguige_table;	//肢宽b;肢厚d;内圆半径r;理论重量
+struct IAngleLibrary {	//此类支持无限角钢规格库数量 wjh-2019.9.11
+	virtual int AngleCount()=0;
+	virtual int SetAngleCount(int count)=0;
+	virtual JG_PARA_TYPE* GetAt(int index)=0;
+	virtual JG_PARA_TYPE* SetAt(int index,const JG_PARA_TYPE& anglesize)=0;
+	virtual JG_PARA_TYPE* AppendAngleSize(const JG_PARA_TYPE& anglesize)=0;
+	virtual JG_PARA_TYPE* GetAngleSizeTbl()=0;
+	operator JG_PARA_TYPE*() { return GetAngleSizeTbl(); }
+public:	//属性
+	int get_AngleCount() { return AngleCount(); }
+	int set_AngleCount(UINT count) { return SetAngleCount(count); }
+	__declspec(property(put=set_AngleCount,get=get_AngleCount)) int Count;
+	__declspec(property(put=set_AngleCount,get=get_AngleCount)) int jgguige_N;
+	JG_PARA_TYPE* get_pxAnglTbl() { return GetAngleSizeTbl(); }
+	//肢宽b;肢厚d;内圆半径r;理论重量(与旧属性jgguige_table相对应) wjh-2019.9.11
+	__declspec(property(get=get_pxAnglTbl)) JG_PARA_TYPE* pxAnglTbl;
+};
+PARTLIB_API IAngleLibrary* AngleLibrary();
+
 extern PARTLIB_API SLOT_PARA_TYPE slotguige_table[];//宽h;厚d;高b;肢宽t;
 extern PARTLIB_API HSHAPE_PARA_TYPE hw_guige_table[];
 extern PARTLIB_API HSHAPE_PARA_TYPE hm_guige_table[];
@@ -573,6 +617,7 @@ extern PARTLIB_API HSHAPE_PARA_TYPE hn_guige_table[];
 extern PARTLIB_API HSHAPE_PARA_TYPE hp_guige_table[];
 extern PARTLIB_API FITTING_GD gxarrGDLib[];
 extern PARTLIB_API FITTING_EB gxarrEBLib[];
+extern PARTLIB_API FITTING_UR gxarrURLib[];
 extern PARTLIB_API int rollend_param_N;	//槽型插板库记录数
 extern PARTLIB_API int uend_param_N;	//U型插板库记录数
 extern PARTLIB_API int xend_param_N;	//X型插板库记录数
@@ -623,12 +668,13 @@ PARTLIB_API HSHAPE_PARA_TYPE* FindHWType(double wide,double height);
 PARTLIB_API HSHAPE_PARA_TYPE* FindHMType(double wide,double height);
 PARTLIB_API HSHAPE_PARA_TYPE* FindHNType(double wide,double height);
 PARTLIB_API HSHAPE_PARA_TYPE* FindHPType(double wide,double height);
-PARTLIB_API FITTING_EB* FindEBFitting(char* sSpec);
-PARTLIB_API FITTING_GD* FindGDFitting(char* sSpec);
+PARTLIB_API FITTING_EB* FindEBFitting(const char* sSpec);
+PARTLIB_API FITTING_GD* FindGDFitting(const char* sSpec);
+PARTLIB_API FITTING_UR* FindURFitting(const char* sSPec);
 //PARTLIB_API double GetJgUnitLenWei(double wing_wide,double wing_thick);//以米为长度单位
 //PARTLIB_API double GetTubeUnitLenWei(double tube_d,double tube_t);//以米为长度单位	钢管单位长度重量
 PARTLIB_API char QuerySteelBriefMatMark(char *steelmark);
-PARTLIB_API BOOL QuerySteelMatMark(char briefmark,char* steelmark);
+PARTLIB_API BOOL QuerySteelMatMark(char briefmark,char* steelmark,int niMaxStrBuffLen=8);
 PARTLIB_API int QuerySteelMatIndex(char briefmark);
 PARTLIB_API STEELMAT *QuerySteelMatByBriefMark(char briefmark);
 PARTLIB_API double CalSteelPlankWei(double volume);//输入体积单位为mm3 输出重量单位为公斤(Kg)
