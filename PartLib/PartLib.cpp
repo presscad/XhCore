@@ -698,44 +698,6 @@ HSHAPE_PARA_TYPE hp_guige_table[200] =
 	502,	465,	15,		25,	28,	307.0,	241,	147000,	41900,	21.9,	11.7,	5860,	1800,
 	502,	470,	20,		25,	28,	332.1,	261,	152000,	43300,	21.4,	11.4,	6070,	1840,
 };
-//GD挂板规格数据
-int gd_guige_N=10;
-FITTING_GD gxarrGDLib[50]=
-{	//size,b,S(预留挂线角钢通厚),M,Ф,H,H1,H2,L,L1
-	{"GD-125",16,16,22,24,30.0,30,12,230,112},
-	{"GD-215",20,16,24,26,40.0,35,12,250,112},
-	{"GD-325",28,16,30,33,40.0,36,12,258,112},
-	{"GD-425",32,16,36,39,45.0,36,12,278,130},
-	{"GD-505",32,16,36,39,48.0,50,12,278,112},
-	{"GD-12" ,16,16,22,24,30.0,35,12,250,112},
-	{"GD-21" ,18,16,24,26,35.0,35,12,250,112},
-	{"GD-30" ,30,16,30,33,46.5,35,12,264,112},
-	{"GD-50" ,34,16,36,44,50.0,40,12,264,112},
-	{"GD-60" ,42,16,42,50,50.0,46,12,290,112},
-};
-//EB挂板规格数据
-int eb_guige_N=6;
-FITTING_EB gxarrEBLib[50]=
-{	//size,b,S(预留挂线角钢通厚),M,Ф,L,H,R
-	{"EB-10/21-100",16,16,24,20, 80,100,24},
-	{"EB-16/21-100",18,16,24,26, 80,100,32},
-	{"EB-16/42-100",18,16,36,26,100,100,32},
-	{"EB-21/42-100",20,16,36,26,100,100,32},
-	{"EB-21/42-120",20,16,36,26,112,120,32},
-	{"EB-32/42-100",28,16,36,33,100,100,40},
-};
-//U型环规格数据
-int ur_guige_N = 8;
-FITTING_UR gxarrURLib[50] = {
-	{"U-7" ,0, 80,16,22, 8,16,20,10},	// 1	
-	{"U-10",0, 85,18,24, 9,18,22,11},	// 2
-	{"U-12",0, 90,22,30,10,20,24,12},	// 3
-	{"U-16",0, 95,24,32,11,22,26,13},	// 4
-	{"U-21",0,100,27,36,12,24,30,15},	// 5
-	{"U-25",0,110,30,40,13,26,34,17},	// 6
-	{"U-30",0,130,36,46,15,30,38,19},	// 7
-	{"U-50",0,150,42,55,18,36,44,22},	// 8
-};
 /*
 int tubeguige_N=24;	//钢管类杆件
 TUBE_PARA_TYPE tubeguige_table[200] =
@@ -4022,33 +3984,6 @@ HSHAPE_PARA_TYPE* FindHPType(double wide,double height)
 	{
 		if(fabs(hp_guige_table[i].b=wide)<EPS && fabs(hp_guige_table->h-height)<EPS)
 			return &hp_guige_table[i];
-	}
-	return NULL;
-}
-FITTING_EB* FindEBFitting(const char* sSpec)
-{
-	for(int i=0;i<eb_guige_N;i++)
-	{
-		if(stricmp(gxarrEBLib[i].szSizeCode,sSpec)==0)
-			return &gxarrEBLib[i];
-	}
-	return NULL;
-}
-FITTING_GD* FindGDFitting(const char* sSpec)
-{
-	for(int i=0;i<gd_guige_N;i++)
-	{
-		if(stricmp(gxarrGDLib[i].szSizeCode,sSpec)==0)
-			return &gxarrGDLib[i];
-	}
-	return NULL;
-}
-FITTING_UR* FindURFitting(const char* sSPec)
-{
-	for (int i = 0; i < ur_guige_N; i++)
-	{
-		if (stricmp(gxarrURLib[i].szSizeCode, sSPec) == 0)
-			return &gxarrURLib[i];
 	}
 	return NULL;
 }

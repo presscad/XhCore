@@ -521,41 +521,6 @@ struct PARTLIB_API JG_JOINT_PARA
 	double fOuterJgWidth;		//外包角钢宽度
 	double fOuterJgThick;		//外包角钢厚度
 };
-//金具
-struct PARTLIB_API FITTING_GD{	
-	char   szSizeCode[16];	//型号代码
-	short  siThick;			//挂板厚度b
-	short  siThroughThick;	//预留挂线角钢肢(通)厚
-	double dfTrunnionD;		//耳轴直径
-	double dfHoleD;			//挂孔直径(diameter)Ф
-	double dfBoardH;		//螺栓孔中心到下圆弧的长H
-	double dfBoardH1;		//耳轴到上圆弧的长H1
-	double dfBoardH2;		//挂孔到耳轴中心线距离H2
-	double dfTrunnionL;		//耳轴总长
-	double dfBoardL;		//金具(挂板部分)宽度，上圆弧长
-};
-struct PARTLIB_API FITTING_EB{
-	char   szSizeCode[16];	//型号代码
-	short  siThick;			//挂板厚度b
-	short  siThroughThick;	//预留挂线角钢肢(通)厚
-	double dfTrunnionD;		//耳轴直径
-	double dfHoleD;			//挂孔直径
-	double dfBoardL;		//金具(挂板部分)宽度
-	double dfBoardH;		//挂孔到耳轴中心线距离H
-	double dfChinR;			//挂孔下巴圆弧半径
-};
-struct PARTLIB_API FITTING_UR
-{
-	char szSizeCode[16];	//型号代码
-	char ciType;			//0.普通型U形挂环;1.加长型U形挂环
-	double dfNamedL;		//名义长(转轴中心至环壁内侧)L，mm
-	double dfShaftD;		//转轴螺栓直径d
-	double dfMdEdgeSpace;	//U型环与转轴螺母贴合面的边距D，mm
-	double dfT;				//U型环与EB或GD挂板间的连接部单侧连接壁厚T，mm
-	double dfRingBs;		//U型环柱直径B(s),
-	double dfBoardSpaceC;	//U型环与EB或GD挂板间的连接间隙(>=EB/GD挂板厚度)
-	double dfRadiusOfRing;	//U型环圆环内侧半径R，一般>=dfBoardSpaceC/2
-};
 //－－－－－－输出变量声明－－－－－－－－－
 extern PARTLIB_API WORD zhunju_N;
 extern PARTLIB_API int tubeguige_N;	//回转类杆件
@@ -565,9 +530,6 @@ extern PARTLIB_API int hw_guige_N;	//宽翼缘H钢杆件
 extern PARTLIB_API int hm_guige_N;	//中翼缘H钢杆件
 extern PARTLIB_API int hn_guige_N;	//窄翼缘H钢杆件
 extern PARTLIB_API int hp_guige_N;	//等翼缘H钢杆件
-extern PARTLIB_API int eb_guige_N;	//EB挂板规格
-extern PARTLIB_API int gd_guige_N;	//GD挂板规格
-extern PARTLIB_API int ur_guige_N;	//U型环规格
 extern PARTLIB_API int LsTypeCount;
 extern PARTLIB_API int g_nJgJointRecordNum;
 //extern PARTLIB_API int nLsXingHaoCount;//当前版本螺栓类型记录数
@@ -615,9 +577,6 @@ extern PARTLIB_API HSHAPE_PARA_TYPE hw_guige_table[];
 extern PARTLIB_API HSHAPE_PARA_TYPE hm_guige_table[];
 extern PARTLIB_API HSHAPE_PARA_TYPE hn_guige_table[];
 extern PARTLIB_API HSHAPE_PARA_TYPE hp_guige_table[];
-extern PARTLIB_API FITTING_GD gxarrGDLib[];
-extern PARTLIB_API FITTING_EB gxarrEBLib[];
-extern PARTLIB_API FITTING_UR gxarrURLib[];
 extern PARTLIB_API int rollend_param_N;	//槽型插板库记录数
 extern PARTLIB_API int uend_param_N;	//U型插板库记录数
 extern PARTLIB_API int xend_param_N;	//X型插板库记录数
@@ -668,9 +627,6 @@ PARTLIB_API HSHAPE_PARA_TYPE* FindHWType(double wide,double height);
 PARTLIB_API HSHAPE_PARA_TYPE* FindHMType(double wide,double height);
 PARTLIB_API HSHAPE_PARA_TYPE* FindHNType(double wide,double height);
 PARTLIB_API HSHAPE_PARA_TYPE* FindHPType(double wide,double height);
-PARTLIB_API FITTING_EB* FindEBFitting(const char* sSpec);
-PARTLIB_API FITTING_GD* FindGDFitting(const char* sSpec);
-PARTLIB_API FITTING_UR* FindURFitting(const char* sSPec);
 //PARTLIB_API double GetJgUnitLenWei(double wing_wide,double wing_thick);//以米为长度单位
 //PARTLIB_API double GetTubeUnitLenWei(double tube_d,double tube_t);//以米为长度单位	钢管单位长度重量
 PARTLIB_API char QuerySteelBriefMatMark(char *steelmark);
