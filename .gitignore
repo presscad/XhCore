@@ -71,6 +71,8 @@ artifacts/
 *.command.1.tlog
 *.lastbuildstate
 *.dll.intermediate.manifest
+*.dll.embed.manifest
+*_manifest.rc
 *.exp
 *.log
 *.pch
