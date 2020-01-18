@@ -2134,7 +2134,7 @@ void CModModel::WriteModFileByUtf8(FILE* fp)
 	{
 		wchar_t sWText[MAX_PATH];
 		ANSIToUnicode(pGuaInfo->m_sHangName,sWText);
-		fwprintf(fp,L"G,%c,%s,%f,%f,%f\n",pGuaInfo->m_ciWireType,sWText,pGuaInfo->m_xHangPos.x,pGuaInfo->m_xHangPos.y,pGuaInfo->m_xHangPos.z);
+		fwprintf(fp,L"G,%c,%s,%f,%f,%f\n",pGuaInfo->GetModWireType(),sWText,pGuaInfo->m_xHangPos.x,pGuaInfo->m_xHangPos.y,pGuaInfo->m_xHangPos.z);
 	}
 	fclose(fp);
 }
@@ -2254,7 +2254,7 @@ void CModModel::WriteModFileByAnsi(FILE* fp)
 	}
 	//输入挂点信息
 	for(MOD_HANG_NODE* pGuaInfo=m_listGuaNode.GetFirst();pGuaInfo;pGuaInfo=m_listGuaNode.GetNext())
-		fprintf(fp,"G,%c,%s,%f,%f,%f\n",pGuaInfo->m_ciWireType,pGuaInfo->m_sHangName,pGuaInfo->m_xHangPos.x,pGuaInfo->m_xHangPos.y,pGuaInfo->m_xHangPos.z);
+		fprintf(fp,"G,%c,%s,%f,%f,%f\n",pGuaInfo->GetModWireType(),pGuaInfo->m_sHangName,pGuaInfo->m_xHangPos.x,pGuaInfo->m_xHangPos.y,pGuaInfo->m_xHangPos.z);
 	fclose(fp);
 }
 void CModModel::WriteModFile(FILE* pFile,BOOL bUtf8/*=FALSE*/)
@@ -2359,7 +2359,7 @@ void CModModel::WriteModFile(FILE* pFile,BOOL bUtf8/*=FALSE*/)
 	}
 	//输入挂点信息
 	for(MOD_HANG_NODE* pGuaInfo=m_listGuaNode.GetFirst();pGuaInfo;pGuaInfo=m_listGuaNode.GetNext())
-		fprintf(fp,"G,%c,%s,%f,%f,%f\n",pGuaInfo->m_ciWireType,pGuaInfo->m_sHangName,pGuaInfo->m_xHangPos.x,pGuaInfo->m_xHangPos.y,pGuaInfo->m_xHangPos.z);
+		fprintf(fp,"G,%c,%s,%f,%f,%f\n",pGuaInfo->GetModWireType(),pGuaInfo->m_sHangName,pGuaInfo->m_xHangPos.x,pGuaInfo->m_xHangPos.y,pGuaInfo->m_xHangPos.z);
 	fclose(fp);
 	//获取文件内容
 	CBuffer src_buf;

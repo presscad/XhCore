@@ -122,6 +122,17 @@ struct MODCORE_API MOD_HANG_NODE
 		m_xHangPos=pSrcHangNode->m_xHangPos;
 		strcpy(m_sHangName,pSrcHangNode->m_sHangName);
 	}
+	char GetModWireType()
+	{
+		if (m_ciWireType == 'E' || m_ciWireType == 1)
+			return 'G';
+		else if (m_ciWireType == 'C' || m_ciWireType == 2)
+			return 'C';
+		else if (m_ciWireType == 'J' || m_ciWireType == 3)
+			return 'T';
+		else
+			return m_ciWireType;
+	}
 };
 
 class IModModel;
