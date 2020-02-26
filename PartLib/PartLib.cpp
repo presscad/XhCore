@@ -503,7 +503,7 @@ bool GetLocalLsFamily(long hFamily,char* sCodeName,CLsFamily* pLsFamily)
 }
 /////////////////////////////////////////////////////////////////////////////
 //角钢规格	准距g	准距g1	准距g2	准距g3
-WORD zhunju_N = 18;
+WORD zhunju_N = 20;
 //角钢准据新规范 wht 11-01-06
 ANGLE_G_REC zhunju_table[100]=
 {
@@ -525,6 +525,8 @@ ANGLE_G_REC zhunju_table[100]=
 	200,100,75,	135,0,
 	220,110,85, 145,0,
 	250,125,105,165,0,
+	280,140,115,200,0,
+	300,150,125,215,0,
 };
 /*角钢准据旧规范
 WORD zhunju_table[100][5]=

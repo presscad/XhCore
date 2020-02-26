@@ -17,7 +17,7 @@
 struct MY3DS_API I3DSData
 {
 	virtual int GetSerial()=0;
-	virtual bool AddSolidPart(CSolidBody* pSolidBody,int nId,char* sSolidName,BOOL bTransPtMMtoM=FALSE,int nParentId=-1)=0;
+	virtual bool AddSolidPart(CSolidBody* pSolidBody,int nId,char* sSolidName,BOOL iInch0M1MM2 =FALSE,int nParentId=-1)=0;
 	virtual void Creat3DSFile(const char* sFilePath)=0;
 };
 

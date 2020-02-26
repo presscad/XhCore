@@ -67,7 +67,7 @@ public:
 	~C3DSData(void);
 	//
 	virtual int GetSerial(){return m_iNo;}
-	virtual bool AddSolidPart(CSolidBody* pSolidBody,int nId,char* sSolidName,BOOL bTransPtMMtoM=FALSE,int nParentId=-1);
+	virtual bool AddSolidPart(CSolidBody* pSolidBody,int nId,char* sSolidName,BOOL iInch0M1MM2 =FALSE,int nParentId=-1);
 	virtual void Creat3DSFile(const char* sFilePath);
 private:
 	void CreatNewMaterial(float fRed,float fGreen,float fBlue,char* sName);
@@ -95,6 +95,7 @@ private:
 	{
 		dstTrack.flags = srcTrack.flags;
 		dstTrack.keyL = NULL;
+
 		const TKey *keySrc = srcTrack.keyL;
 		TKey *keyDst = NULL, *keyPrev = NULL;
 

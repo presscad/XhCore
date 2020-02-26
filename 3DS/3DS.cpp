@@ -663,7 +663,7 @@ C3DSData::~C3DSData(void)
 {
 }
 //解析实体buffer,重新生成面
-bool C3DSData::AddSolidPart(CSolidBody* pSolidBody,int nId,char* sSolidName,BOOL bTransPtMMtoM/*=FALSE*/,int nParentId/*=-1*/)
+bool C3DSData::AddSolidPart(CSolidBody* pSolidBody,int nId,char* sSolidName,BOOL iInch0M1MM2/*=FALSE*/,int nParentId/*=-1*/)
 {
 	//将SolidBody数据解析为三角面片实体数据
 	static char solidbufpool[0x200000];	//零件实体缓存2M
@@ -684,6 +684,10 @@ bool C3DSData::AddSolidPart(CSolidBody* pSolidBody,int nId,char* sSolidName,BOOL
 	int vertex_n=dstSolidBody.KeyPointNum();
 	vecteArr.SetSize(vertex_n);
 	double fCoef=0.0393701;	//毫米到英寸的转换比例
+	if (iInch0M1MM2 == 1)
+		fCoef = 0.001;
+	else if (iInch0M1MM2 == 2)
+		fCoef = 1;
 	for(int i=0;i<vertex_n;i++)
 	{
 		GEPOINT pt=dstSolidBody.GetKeyPointAt(i);
@@ -722,6 +726,8 @@ bool C3DSData::AddSolidPart(CSolidBody* pSolidBody,int nId,char* sSolidName,BOOL
 			for(int k=0;k<facet.FacetNumber;k++)
 			{
 				Lib3dsFace* pFace=faceArr.append();
+				pFace->flags=0x07;	//必须初始化，否则每次导出的文件都不一样，而且可能会丢失部分杆件的显示  wjh-2019.10.16
+				pFace->smoothing=0;
 				if(facet.Mode==GL_TRIANGLES)
 				{ 
 					for(int ii=0;ii<3;ii++)
