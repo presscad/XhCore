@@ -56,7 +56,7 @@
       <WarningLevel>Level3</WarningLevel>
       <Optimization>Disabled</Optimization>
       <PreprocessorDefinitions>WIN32;_DEBUG;_WINDOWS;_USRDLL;MODCORE_EXPORTS;_DISABLE_DEBUG_NEW_;%(PreprocessorDefinitions)</PreprocessorDefinitions>
-      <AdditionalIncludeDirectories>..\..\ToolKits\ToolCode;..\..\XhCore\AlgFun;..\..\XhCore\Ent;..\..\XhCore\EntList;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>..\..\XhCore\AlgFun;..\..\XhCore\Ent;..\..\XhCore\EntList;..\..\ToolKits\ToolCode;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Windows</SubSystem>
